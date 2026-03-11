@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Juego de Memoria</title>
+</head>
+
+<body>
+
+<h1>Juego de Memoria</h1>
+
+<p>Intentos: {{ intentos }}</p>
+
+<table border="1">
+
+{% for i in range(tablero|length) %}
+<tr>
+
+{% for j in range(tablero[i]|length) %}
+
+<td style="width:60px;height:60px;text-align:center;font-size:25px;">
+
+{% if (i,j) in descubiertas or (i,j) in seleccion %}
+{{ tablero[i][j] }}
+
+{% else %}
+
+<form method="POST">
+<input type="hidden" name="fila" value="{{i}}">
+<input type="hidden" name="col" value="{{j}}">
+<button type="submit" style="width:60px;height:60px;">?</button>
+</form>
+
+{% endif %}
+
+</td>
+
+{% endfor %}
+
+</tr>
+{% endfor %}
+
+</table>
+
+{% if ganado %}
+<h2>🎉 ¡Ganaste el juego!</h2>
+<a href="/reiniciar">Jugar otra vez</a>
+{% endif %}
+
+</body>
+</html>
